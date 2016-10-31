@@ -1,15 +1,12 @@
 package infinnov.udacity.capstoneproject;
 
-import android.app.Dialog;
-import android.content.SharedPreferences;
 import android.media.MediaPlayer;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.view.GestureDetectorCompat;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.GestureDetector;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -18,10 +15,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import java.util.Random;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -67,36 +61,38 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
     MediaPlayer mnojoin;
     static Animation animationFadeIn;
 
-
     public GameFragment() {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_game, container, false);
-        ButterKnife.bind(this, view);
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        Log.e("====================","-----------------------");
+
+        ButterKnife.bind(GameFragment.this, getView());
         animationFadeIn = AnimationUtils.loadAnimation(getContext() , R.anim.fadein);
         mDetector = new GestureDetectorCompat(getContext(),this);
 
         img[0][0] = pb11;
-        img[0][1] =pb12;
-        img[0][2] =pb13;
-        img[0][3] =pb14;
-        img[1][0] =pb21;
-        img[1][1] =pb22;
-        img[1][2] =pb23;
-        img[1][3] =pb24;
-        img[2][0] =pb31;
-        img[2][1] =pb32;
-        img[2][2] =pb33;
-        img[2][3] =pb34;
-        img[3][0] =pb41;
-        img[3][1] =pb42;
-        img[3][2] =pb43;
-        img[3][3] =pb44;
+        img[0][1] = pb12;
+        img[0][2] = pb13;
+        img[0][3] = pb14;
+        img[1][0] = pb21;
+        img[1][1] = pb22;
+        img[1][2] = pb23;
+        img[1][3] = pb24;
+        img[2][0] = pb31;
+        img[2][1] = pb32;
+        img[2][2] = pb33;
+        img[2][3] = pb34;
+        img[3][0] = pb41;
+        img[3][1] = pb42;
+        img[3][2] = pb43;
+        img[3][3] = pb44;
         mjoin = MediaPlayer.create(getContext(), R.raw.join);
         mnojoin = MediaPlayer.create(getContext(), R.raw.nojoin);
+        reset.setText("asdasdasdasd");
         //resetgame();
         //createnew
 /*
@@ -108,6 +104,13 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
                 createnew(arrbool , arrval , img);
             }
         });*/
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_game, container, false);
+        Log.e("====================","+++++++++++++++++++++++++++++++=");
         return view;
     }
 
@@ -684,8 +687,8 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
                 arrbool[i][j] = false;
             }
         }
-        createnew(arrbool , arrval , img);
-        setscore();
+        //createnew(arrbool , arrval , img);
+        //setscore();
     }
 
 }
