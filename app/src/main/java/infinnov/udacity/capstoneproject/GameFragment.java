@@ -395,10 +395,308 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
     }
 
     @Override
-    public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
         Log.e("fling","------------------");
+        // TODO Auto-generated method stub
+        final int SWIPE_THRESHOLD = 30;              //swip distance
+        final int SWIPE_VELOCITY_THRESHOLD = 50;     //swip velocity.
+        float diffY = e2.getY() - e1.getY();
+        float diffX = e2.getX() - e1.getX();
+        int sound =0;
+        if (Math.abs(diffX) > Math.abs(diffY))
+        {
+            if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD)
+            {
+                if (diffX > 0)
+                {	//right
+                    int flag = 1;
+                    for (int i = 0; i < 4; i++)
+                    {
+                        for (int j = 2; j >=0; j--)
+                        {
+                            if (arrbool[i][j] == true && arrbool[i][ j + 1] == false)
+                            {           //shift to right
+                                arrval[i][ j + 1] = arrval[i][ j];
+                                arrval[i][j] = 0;
+                                arrbool[i][j + 1] = true;
+                                arrbool[i][j] = false;
+                                setimg(i, j , arrbool , arrval , img);
+                                setimg(i, j + 1 , arrbool , arrval , img);
+                                flag = 0;
+                            }
+                            else  //check if next right matches
+                                flag = 1;
+                            if (flag == 0)
+                                j = 2;
+                        }
+                    }
+                    for (int i = 0; i < 4; i++)
+                    {
+                        for (int j = 2; j >= 0; j--)
+                        {
+                            if (arrbool[i][j] == true && arrbool[i][ j + 1] == true && arrval[i][ j] == arrval[i][ j + 1])
+                            {            //combine to right
+                                arrval[i][ j + 1] = 2 * arrval[i][ j];
+                                arrval[i][ j] = 0;
+                                arrbool[i][ j] = false;
+                                setimg(i, j , arrbool , arrval , img);
+                                setimg(i, j + 1 , arrbool , arrval , img);
+                                sound=1;
+                            }
+                        }
+                    }
+                    flag = 1;
+                    for (int i = 0; i < 4; i++)
+                    {
+                        for (int j = 2; j >= 0; j--)
+                        {
+                            if (arrbool[i][j] == true && arrbool[i][j + 1] == false)
+                            {            //shift to right
+                                arrval[i][ j + 1] = arrval[i][ j];
+                                arrval[i][j] = 0;
+                                arrbool[i][ j + 1] = true;
+                                arrbool[i][ j] = false;
+                                setimg(i, j , arrbool , arrval , img);
+                                setimg(i, j + 1 , arrbool , arrval , img);
+                                flag = 0;
+                            }
+                            else  //check if next right matches
+                                flag = 1;
+                            if (flag == 0)
+                                j = 2;
+                        }
+                    }
+                    checkloose();
+                    createnew(arrbool , arrval , img);
+                    setscore();
+                    if(music.equalsIgnoreCase("ON"))
+                    {
+                        if(sound ==0 )
+                            mnojoin.start();
+                        else
+                            mjoin.start();
+                    }
+                }
+                else
+                {//left
+                    int flag = 1;
+                    for (int i = 0; i < 4; i++)
+                    {
+                        for (int j = 1; j < 4; j++)
+                        {
+                            if (arrbool[i][j] == true && arrbool[i][ j - 1] == false)
+                            {            //shift to left
+                                arrval[i][ j - 1] = arrval[i][j];
+                                arrval[i][ j] = 0;
+                                arrbool[i][ j - 1] = true;
+                                arrbool[i][j] = false;
+                                setimg(i, j , arrbool , arrval , img);
+                                setimg(i, j - 1 , arrbool , arrval  , img);
+                                flag = 0;
+                            }
+                            else  //check if next left matches
+                                flag = 1;
+                            if (flag == 0)
+                                j = 0;
+                        }
+                    }
+                    for (int i = 0; i < 4; i++)
+                    {
+                        for (int j = 1; j < 4; j++)
+                        {
+                            if (arrbool[i][j] == true && arrbool[i][j - 1] == true && arrval[i][j] == arrval[i][ j - 1])
+                            {            //combine to left
+                                arrval[i][ j - 1] = 2 * arrval[i][ j];
+                                arrval[i][ j] = 0;
+                                arrbool[i][ j] = false;
+                                setimg(i, j , arrbool , arrval , img);
+                                setimg(i, j - 1 , arrbool , arrval , img);
+                                sound=1;
+                            }
+                        }
+                    }
+                    flag = 1;
+                    for (int i = 0; i < 4; i++)
+                    {
+                        for (int j = 1; j < 4; j++)
+                        {
+                            if (arrbool[i][j] == true && arrbool[i][ j - 1] == false)
+                            {            //shift to left
+                                arrval[i][j - 1] = arrval[i][j];
+                                arrval[i][j] = 0;
+                                arrbool[i][ j - 1] = true;
+                                arrbool[i][j] = false;
+                                setimg(i, j , arrbool , arrval , img);
+                                setimg(i, j - 1 , arrbool , arrval , img);
+                                flag = 0;
+                            }
+                            else  //check if next left matches
+                                flag = 1;
+                            if(flag == 0)
+                                j = 0;
+                        }
+                    }
+                    checkloose();
+                    createnew(arrbool , arrval , img);
+                    setscore();
+                    if(music.equalsIgnoreCase("ON"))
+                    {
+                        if(sound ==0 )
+                            mnojoin.start();
+                        else
+                            mjoin.start();
+                    }
+                }
+            }
+            return true;
+        }
+        else if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD)
+        {
+            if (diffY > 0)
+            {//down
+                int flag = 1;
+                for (int i = 2; i >= 0; i--)
+                {
+                    for (int j = 0; j < 4; j++)
+                    {
+                        if (arrbool[i][j] == true && arrbool[i + 1][j] == false)
+                        {           //shift to down
+                            arrval[i + 1][j] = arrval[i][ j];
+                            arrval[i][ j] = 0;
+                            arrbool[i + 1][ j] = true;
+                            arrbool[i][ j] = false;
+                            setimg(i, j , arrbool , arrval , img);
+                            setimg(i + 1, j , arrbool , arrval , img);
+                            flag = 0;
+                        }
+                        else  //check if next down matches
+                            flag = 1;
+                        if (flag == 0)
+                            i = 2;
+                    }
+                }
+                for (int i = 2; i >= 0; i--)
+                {
+                    for (int j = 0; j < 4; j++)
+                    {
+                        if (arrbool[i][ j] == true && arrbool[i + 1][ j] == true && arrval[i][ j] == arrval[i + 1][ j])
+                        {            //combine to down
+                            arrval[i + 1][ j] = 2 * arrval[i][ j];
+                            arrval[i][ j] = 0;
+                            arrbool[i][ j] = false;
+                            setimg(i, j , arrbool , arrval , img);
+                            setimg(i + 1, j , arrbool , arrval , img);
+                            sound=1;
+                        }
+                    }
+                }
+                flag = 1;
+                for (int i = 2; i >= 0; i--)
+                {
+                    for (int j = 0; j < 4; j++)
+                    {
+                        if (arrbool[i][j] == true && arrbool[i + 1][ j] == false)
+                        {           //shift to down
+                            arrval[i + 1][ j] = arrval[i][ j];
+                            arrval[i][j] = 0;
+                            arrbool[i + 1][ j] = true;
+                            arrbool[i][ j] = false;
+                            setimg(i, j , arrbool , arrval , img);
+                            setimg(i + 1, j , arrbool , arrval , img);
+                            flag = 0;
+                        }
+                        else  //check if next down matches
+                            flag = 1;
+                        if (flag == 0)
+                            i = 2;
+                    }
+                }
+                checkloose();
+                createnew(arrbool , arrval , img);
+                setscore();
+                if(music.equalsIgnoreCase("ON"))
+                {
+                    if(sound ==0 )
+                        mnojoin.start();
+                    else
+                        mjoin.start();
+                }
+            }
+            else
+            {//up
+                int flag = 1;
+                for (int i = 1; i < 4; i++)
+                {
+                    for (int j = 0; j < 4; j++)
+                    {
+                        if (arrbool[i][j] == true && arrbool[i - 1][ j] == false)
+                        {            //shift to up
+                            arrval[i - 1][ j] = arrval[i][ j];
+                            arrval[i][ j] = 0;
+                            arrbool[i - 1][ j] = true;
+                            arrbool[i][ j] = false;
+                            setimg(i, j , arrbool , arrval , img);
+                            setimg(i - 1, j , arrbool , arrval , img);
+                            flag = 0;
+                        }
+                        else  //check if next up matches
+                            flag = 1;
+                        if (flag == 0)
+                            i = 1;
+                    }
+                }
+                for (int i = 1; i < 4; i++)
+                {
+                    for (int j = 0; j < 4; j++)
+                    {
+                        if (arrbool[i][ j] == true && arrbool[i - 1][ j] == true && arrval[i][ j] == arrval[i - 1][ j])
+                        {            //combine to up
+                            arrval[i-1][ j] = 2 * arrval[i][ j];
+                            arrval[i][j] = 0;
+                            arrbool[i][ j] = false;
+                            setimg(i, j , arrbool , arrval , img);
+                            setimg(i - 1, j , arrbool , arrval , img);
+                            sound=1;
+                        }
+                    }
+                }
+                flag = 1;
+                for (int i = 1; i < 4; i++)
+                {
+                    for (int j = 0; j < 4; j++)
+                    {
+                        if (arrbool[i][j] == true && arrbool[i - 1][ j] == false)
+                        {            //shift to up
+                            arrval[i - 1][j] = arrval[i][ j];
+                            arrval[i][ j] = 0;
+                            arrbool[i - 1][ j] = true;
+                            arrbool[i][ j] = false;
+                            setimg(i, j , arrbool , arrval , img);
+                            setimg(i - 1, j , arrbool , arrval , img);
+                            flag = 0;
+                        }
+                        else  //check if next up matches
+                            flag = 1;
+                        if (flag == 0)
+                            i = 1;
+                    }
+                }
+                checkloose();
+                createnew(arrbool , arrval , img);
+                setscore();
+                if(music.equalsIgnoreCase("ON"))
+                {
+                    if(sound ==0 )
+                        mnojoin.start();
+                    else
+                        mjoin.start();
+                }
+            }
+            return true;
+        }
         return false;
     }
+
     @Override
     public boolean onDown(MotionEvent motionEvent) {
         return true;
