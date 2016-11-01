@@ -1,9 +1,14 @@
 package infinnov.udacity.capstoneproject;
 
+import android.content.ContentValues;
+import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.content.CursorLoader;
 import android.support.v4.view.GestureDetectorCompat;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -15,7 +20,11 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.Random;
+import java.util.StringTokenizer;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -126,7 +135,6 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
 
         mjoin = MediaPlayer.create(getContext(), R.raw.join);
         mnojoin = MediaPlayer.create(getContext(), R.raw.nojoin);
-        //reset.setText("asdasdasdasd");
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -145,9 +153,47 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
         return view;
     }
 
-    public void setimgwin()
+    public void setscore()
     {
-        imgstart.setImageResource(R.drawable.a2bb);
+        score = 0;
+        for(int i=0; i<4 ;i++)
+        {
+            for(int j=0; j<4 ; j++)
+            {
+                score = score + (arrval[i][j] * 2);
+            }
+        }
+        if(score > HSCORE)	//
+        {
+            updatehscore(score);
+            HSCORE = score;
+        }
+        lblscore.setText("SCORE : "+score);
+        lblhscore.setText("HIGH SCORE : "+ HSCORE);
+    }
+
+    public void updatehscore(int score)
+    {
+        /*
+        DbStruct l1 = new DbStruct();
+        l1.mode =MODE4;
+        l1.HScore = score;
+
+        DbOpt connection = new DbOpt( Nuances.this );
+        connection.open();
+        connection.updatetab(l1);
+        connection.close();*/
+        ContentValues values = new ContentValues();
+        values.put(ScoreProvider._ID, 1);
+        values.put(ScoreProvider.SCORE, score);
+
+        String URL = "content://infinnov.udacity.capstoneproject/scores/1";
+
+        Uri students = Uri.parse(URL);
+        int returned = this.getActivity().getContentResolver().update(
+                students, values, null, null);
+        Toast.makeText(getContext(), "==="+returned, Toast.LENGTH_SHORT).show();
+
     }
 
     public void getHscore(String MODE4)
@@ -171,14 +217,26 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
                 }
             }
         }*/
+
+        String URL = "content://infinnov.udacity.capstoneproject/scores/1";
+
+        Uri students = Uri.parse(URL);
+        //Cursor c = managedQuery(students, null, null, null, "score");
+        CursorLoader cursorLoader = new CursorLoader(getContext(), students,
+                null, null, null, null);
+        Cursor c = cursorLoader.loadInBackground();
+
+        if (c.moveToFirst()) {
+            String tempScore = c.getString(c.getColumnIndex( ScoreProvider.SCORE));
+            Toast.makeText(getContext(), tempScore, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     public void onPause() {
         super.onPause();
 
-        /*
-        SharedPreferences prefs = getPreferences(MODE_PRIVATE);
+        SharedPreferences prefs = this.getActivity().getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor= prefs.edit();
 
         StringBuilder str = new StringBuilder();
@@ -200,6 +258,7 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
         editor.putInt(MODE4 +"score", score);
 
         editor.commit();	//saves the prefs
+        /*
         if(gac.isConnected())
         {
             Games.Leaderboards.submitScore(getApiClient(),getString(R.string.leaderboard_NORMAL), HSCORE);
@@ -211,8 +270,9 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
     public void onResume() {
         // TODO Auto-generated method stub
         super.onResume();
-/*
-        SharedPreferences prefs = getPreferences(MODE_PRIVATE);
+        //finalize();
+
+        SharedPreferences prefs = this.getActivity().getPreferences(MODE_PRIVATE);
         String savedString = prefs.getString(MODE4 + "arrval", "");
         StringTokenizer st = new StringTokenizer(savedString, ",");
         if(savedString.equalsIgnoreCase(""))
@@ -258,7 +318,6 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
                 }
             }
         }
-        */
         //gac.connect();
     }
 
@@ -344,38 +403,6 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
             else
                 flag = 0;
         }
-    }
-
-    public void setscore()
-    {
-        score = 0;
-        for(int i=0; i<4 ;i++)
-        {
-            for(int j=0; j<4 ; j++)
-            {
-                score = score + (arrval[i][j] * 2);
-            }
-        }
-        if(score > HSCORE)	//
-        {
-            updatehscore(score);
-            HSCORE = score;
-        }
-        lblscore.setText("SCORE : "+score);
-        lblhscore.setText("HIGH SCORE : "+ HSCORE);
-    }
-
-    public void updatehscore(int score)
-    {
-        /*
-        DbStruct l1 = new DbStruct();
-        l1.mode =MODE4;
-        l1.HScore = score;
-
-        DbOpt connection = new DbOpt( Nuances.this );
-        connection.open();
-        connection.updatetab(l1);
-        connection.close();*/
     }
 
     public void resetgame()
@@ -695,6 +722,10 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
             return true;
         }
         return false;
+    }
+
+    public void setimgwin(){
+        imgstart.setImageResource(R.drawable.a2bb);
     }
 
     @Override
