@@ -174,15 +174,6 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
 
     public void updatehscore(int score)
     {
-        /*
-        DbStruct l1 = new DbStruct();
-        l1.mode =MODE4;
-        l1.HScore = score;
-
-        DbOpt connection = new DbOpt( Nuances.this );
-        connection.open();
-        connection.updatetab(l1);
-        connection.close();*/
         ContentValues values = new ContentValues();
         values.put(ScoreProvider._ID, 1);
         values.put(ScoreProvider.SCORE, score);
@@ -192,32 +183,11 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
         Uri students = Uri.parse(URL);
         int returned = this.getActivity().getContentResolver().update(
                 students, values, null, null);
-        Toast.makeText(getContext(), "==="+returned, Toast.LENGTH_SHORT).show();
-
+        Toast.makeText(getContext(), "New High: "+returned, Toast.LENGTH_SHORT).show();
     }
 
     public void getHscore(String MODE4)
     {
-        HSCORE = 300;
-        /*
-        DbOpt connection = new DbOpt( Nuances.this );
-        connection.open();
-        Cursor u = connection.searchByMode(MODE4);
-        boolean findUser=false;
-        String Hscore="";
-        if(u!=null && u.getCount()>0)
-        {
-            if(u.moveToFirst())
-            {
-                findUser=true;
-                Hscore= u.getString(u.getColumnIndex("HScore"));
-                if(findUser==true)
-                {
-                    HSCORE = Integer.parseInt(Hscore);
-                }
-            }
-        }*/
-
         String URL = "content://infinnov.udacity.capstoneproject/scores/1";
 
         Uri students = Uri.parse(URL);
