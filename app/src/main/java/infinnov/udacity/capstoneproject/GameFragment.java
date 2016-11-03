@@ -180,19 +180,19 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
 
         String URL = "content://infinnov.udacity.capstoneproject/scores/1";
 
-        Uri students = Uri.parse(URL);
+        Uri scoreUri = Uri.parse(URL);
         int returned = this.getActivity().getContentResolver().update(
-                students, values, null, null);
-        Toast.makeText(getContext(), "New High: "+returned, Toast.LENGTH_SHORT).show();
+                scoreUri, values, null, null);
+        Toast.makeText(getContext(), "New High: "+returned, Toast.  LENGTH_SHORT).show();
     }
 
     public void getHscore(String MODE4)
     {
         String URL = "content://infinnov.udacity.capstoneproject/scores/1";
 
-        Uri students = Uri.parse(URL);
-        //Cursor c = managedQuery(students, null, null, null, "score");
-        CursorLoader cursorLoader = new CursorLoader(getContext(), students,
+        Uri scoreUri = Uri.parse(URL);
+        //Cursor c = managedQuery(scoreUri, null, null, null, "score");
+        CursorLoader cursorLoader = new CursorLoader(getContext(), scoreUri,
                 null, null, null, null);
         Cursor c = cursorLoader.loadInBackground();
 
