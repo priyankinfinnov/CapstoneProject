@@ -2,10 +2,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#09C"
-    android:padding="@dimen/widget_margin">
+    android:padding="@dimen/widget_margin"
+    android:id="@+id/rlaw">
 
     <TextView
         android:id="@+id/tvawHighScore"
+        android:layout_alignParentStart="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -17,5 +19,14 @@
         android:textColor="#ffffff"
         android:textSize="24sp"
         android:textStyle="bold|italic" />
+    
+    <Button
+        android:id="@+id/btawPlay"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/appwidget_button"/>
 
 </RelativeLayout>

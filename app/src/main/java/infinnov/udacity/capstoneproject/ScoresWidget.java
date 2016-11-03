@@ -32,17 +32,13 @@ public class ScoresWidget extends AppWidgetProvider {
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
         // Construct the RemoteViews object
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        String url = "http://www.tutorialspoint.com";
-        intent.setData(Uri.parse(url));
-
+        Intent intent = new Intent(context, Game.class);
         PendingIntent pending = PendingIntent.getActivity(context, 0,intent, 0);
 
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.scores_widget);
         String highScore = getHscore(context);
         views.setTextViewText(R.id.tvawHighScore, highScore);
-        views.setOnClickPendingIntent(R.layout.scores_widget, pending);
+        views.setOnClickPendingIntent(R.id.btawPlay, pending);
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }

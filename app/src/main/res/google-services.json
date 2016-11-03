@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "990613149357",
+    "project_id": "firebase-udacitycapstone"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:990613149357:android:510105c3cff0bdfd",
+        "android_client_info": {
+          "package_name": "infinnov.udacity.capstoneproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "990613149357-1smrg3doh0v0bacb238lf2m2te52svv3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "infinnov.udacity.capstoneproject",
+            "certificate_hash": "72364AB582C56E25DA84BEC33A1E1C746BAC02AD"
+          }
+        },
+        {
+          "client_id": "990613149357-9hbp7p65d849nsi632m1elq540b7k032.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyry_T3YogPa8pOI4N8KewCBe5HHpXwus"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
