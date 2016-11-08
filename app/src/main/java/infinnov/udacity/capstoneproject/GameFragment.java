@@ -74,47 +74,15 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        Log.e("====================","-----------------------");
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_game, container, false);
         view.setLongClickable(true);
         Log.e("====================","+++++++++++++++++++++++++++++++");
 
-        //ButterKnife.bind(this,view);
+        ButterKnife.bind(this,view);
         animationFadeIn = AnimationUtils.loadAnimation(getContext() , R.anim.fadein);
         mDetector = new GestureDetectorCompat(getContext(),this);
-
-        pb11 = (ImageView) view.findViewById(R.id.pb11);
-        pb12 = (ImageView) view.findViewById(R.id.pb12);
-        pb13 = (ImageView) view.findViewById(R.id.pb13);
-        pb14 = (ImageView) view.findViewById(R.id.pb14);
-
-        pb21 = (ImageView) view.findViewById(R.id.pb21);
-        pb22 = (ImageView) view.findViewById(R.id.pb22);
-        pb23 = (ImageView) view.findViewById(R.id.pb23);
-        pb24 = (ImageView) view.findViewById(R.id.pb24);
-
-        pb31 = (ImageView) view.findViewById(R.id.pb31);
-        pb32 = (ImageView) view.findViewById(R.id.pb32);
-        pb33 = (ImageView) view.findViewById(R.id.pb33);
-        pb34 = (ImageView) view.findViewById(R.id.pb34);
-
-        pb41 = (ImageView) view.findViewById(R.id.pb41);
-        pb42 = (ImageView) view.findViewById(R.id.pb42);
-        pb43 = (ImageView) view.findViewById(R.id.pb43);
-        pb44 = (ImageView) view.findViewById(R.id.pb44);
-
-        lblscore = (TextView) view.findViewById(R.id.lblscore);
-        lblhscore = (TextView) view.findViewById(R.id.lblhscore);
-        imgstart = (ImageView) view.findViewById(R.id.imgstart);
-        reset = (TextView) view.findViewById(R.id.reset);
 
         img[0][0] = pb11;
         img[0][1] = pb12;
@@ -183,7 +151,7 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
         Uri scoreUri = Uri.parse(URL);
         int returned = this.getActivity().getContentResolver().update(
                 scoreUri, values, null, null);
-        Toast.makeText(getContext(), "New High: "+returned, Toast.  LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "New High: "+score, Toast.  LENGTH_SHORT).show();
     }
 
     public void getHscore(String MODE4)
@@ -197,8 +165,8 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
         Cursor c = cursorLoader.loadInBackground();
 
         if (c.moveToFirst()) {
-            String tempScore = c.getString(c.getColumnIndex( ScoreProvider.SCORE));
-            Toast.makeText(getContext(), tempScore, Toast.LENGTH_SHORT).show();
+            HSCORE = c.getInt(c.getColumnIndex( ScoreProvider.SCORE));
+            Toast.makeText(getContext(), "High Score is: "+HSCORE, Toast.LENGTH_SHORT).show();
         }
     }
 
