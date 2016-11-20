@@ -22,6 +22,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.Random;
 import java.util.StringTokenizer;
 
@@ -68,7 +70,7 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
     @BindView(R.id.reset) TextView reset;
     MediaPlayer mjoin;
     MediaPlayer mnojoin;
-    static Animation animationFadeIn;
+    //static Animation animationFadeIn;
 
     public GameFragment() {
     }
@@ -81,7 +83,7 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
         Log.e("====================","+++++++++++++++++++++++++++++++");
 
         ButterKnife.bind(this,view);
-        animationFadeIn = AnimationUtils.loadAnimation(getContext() , R.anim.fadein);
+        //animationFadeIn = AnimationUtils.loadAnimation(getContext() , R.anim.fadein);
         mDetector = new GestureDetectorCompat(getContext(),this);
 
         img[0][0] = pb11;
@@ -263,33 +265,33 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
     {
         int x=arrval[i][j];
         if(x == 0)
-            img[i][j].setImageResource(R.drawable.blank);
+            Picasso.with(getContext()).load(R.drawable.blank).into(img[i][j]);
         if (x == 2)
-            img[i][j].setImageResource(R.drawable.a2bb);
+            Picasso.with(getContext()).load(R.drawable.a2bb).into(img[i][j]);
         if (x == 4)
-            img[i][j].setImageResource(R.drawable.a4bb);
+            Picasso.with(getContext()).load(R.drawable.a4bb).into(img[i][j]);
         if (x == 8)
-            img[i][j].setImageResource(R.drawable.a8bb);
+            Picasso.with(getContext()).load(R.drawable.a8bb).into(img[i][j]);
         if (x == 16)
-            img[i][j].setImageResource(R.drawable.a16bb);
+            Picasso.with(getContext()).load(R.drawable.a16bb).into(img[i][j]);
         if (x == 32)
-            img[i][j].setImageResource(R.drawable.a32bb);
+            Picasso.with(getContext()).load(R.drawable.a32bb).into(img[i][j]);
         if (x == 64)
-            img[i][j].setImageResource(R.drawable.a64bb);
+            Picasso.with(getContext()).load(R.drawable.a64bb).into(img[i][j]);
         if (x == 128)
         {
-            img[i][j].setImageResource(R.drawable.a128bb);
+            Picasso.with(getContext()).load(R.drawable.a128bb).into(img[i][j]);
             //Games.Achievements.unlock(getApiClient(), getString(R.string.achievement_half_way__normal));
         }
         if (x == 256)
-            img[i][j].setImageResource(R.drawable.a256bb);
+            Picasso.with(getContext()).load(R.drawable.a256bb).into(img[i][j]);
         if (x == 512)
-            img[i][j].setImageResource(R.drawable.a512bb);
+            Picasso.with(getContext()).load(R.drawable.a512bb).into(img[i][j]);
         if (x == 1024)
-            img[i][j].setImageResource(R.drawable.a1024bb);
+            Picasso.with(getContext()).load(R.drawable.a1024bb).into(img[i][j]);
         if (x == 2048)
         {
-            img[i][j].setImageResource(R.drawable.a2048);
+            Picasso.with(getContext()).load(R.drawable.a2048).into(img[i][j]);
             //Games.Achievements.unlock(getApiClient(), getString(R.string.achievement_won_normal));
             //showDialog(1);
             resetgame();
@@ -298,8 +300,7 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
 
     public void setimgnew(int i , int j , ImageView[][] img)
     {
-        img[i][j].startAnimation(animationFadeIn);
-        img[i][j].setImageResource(R.drawable.a2bb);
+        Picasso.with(getContext()).load(R.drawable.a2bb).into(img[i][j]);
     }
 
     public void checkloose()
@@ -350,7 +351,7 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
         {
             for(int j=0; j<4 ; j++)
             {
-                img[i][j].setImageResource(R.drawable.blank);
+                Picasso.with(getContext()).load(R.drawable.blank).into(img[i][j]);
                 arrval[i][j] = 0;
                 arrbool[i][j] = false;
             }
@@ -663,7 +664,7 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
     }
 
     public void setimgwin(){
-        imgstart.setImageResource(R.drawable.a2bb);
+        Picasso.with(getContext()).load(R.drawable.a2bb).into(imgstart);
     }
 
     @Override
