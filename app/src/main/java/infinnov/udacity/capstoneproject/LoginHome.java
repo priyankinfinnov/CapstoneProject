@@ -1,10 +1,13 @@
 package infinnov.udacity.capstoneproject;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.CursorLoader;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -12,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -32,7 +36,6 @@ public class LoginHome extends AppCompatActivity implements GoogleApiClient.OnCo
     @BindView(R.id.ivPlayerImage)    ImageView ivPlayerImage;
     @BindView(R.id.tvHighScore)    TextView tvHighScore;
     @BindView(R.id.btnPlay)    Button btnPlay;
-    @BindView(R.id.btnLeaderboard)    Button btnLeaderboard;
     @BindView(R.id.sign_in_button)    com.google.android.gms.common.SignInButton sign_in_button;
 
 
@@ -64,6 +67,9 @@ public class LoginHome extends AppCompatActivity implements GoogleApiClient.OnCo
                 startActivity(intent3);
             }
         });
+        ivPlayerImage.setVisibility(View.GONE);
+        tvHighScore.setVisibility(View.GONE);
+        btnPlay.setVisibility(View.GONE);
     }
 
     private void signIn() {
@@ -89,7 +95,25 @@ public class LoginHome extends AppCompatActivity implements GoogleApiClient.OnCo
             GoogleSignInAccount acct = result.getSignInAccount();
             Log.d("Nuances App", "--------------------------"+acct.getPhotoUrl());
             //ivPlayerImage.setImageResource();
+            sign_in_button.setVisibility(View.GONE);
+            ivPlayerImage.setVisibility(View.VISIBLE);
+            tvHighScore.setVisibility(View.VISIBLE);
+            btnPlay.setVisibility(View.VISIBLE);
             Picasso.with(this.getApplicationContext()).load(acct.getPhotoUrl()).into(ivPlayerImage);
+
+            String URL = "content://infinnov.udacity.capstoneproject/scores/1";
+
+            Uri scoreUri = Uri.parse(URL);
+            //Cursor c = managedQuery(scoreUri, null, null, null, "score");
+            CursorLoader cursorLoader = new CursorLoader(this.getApplicationContext(), scoreUri,
+                    null, null, null, null);
+            Cursor c = cursorLoader.loadInBackground();
+
+            if (c.moveToFirst()) {
+                Integer Score = c.getInt(c.getColumnIndex( ScoreProvider.SCORE));
+                tvHighScore.setText("Your High "+Score);
+                //Toast.makeText(getApplicationContext(), "Your High "+Score, Toast.LENGTH_SHORT).show();
+            }
             //mStatusTextView.setText(getString(R.string.signedin_fmt, acct.getDisplayName()));
             //updateUI(true);
         } else {

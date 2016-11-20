@@ -66,7 +66,7 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
     final ImageView[][] img = new ImageView[4][4];
     static int score = 0 ;
     static int HSCORE = 0;
-    static String MODE4= "";
+    //static String MODE4= "";
     static String music="";
     @BindView(R.id.lblhscore)    TextView lblhscore;
     @BindView(R.id.lblscore) TextView lblscore;
@@ -179,7 +179,7 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
         Toast.makeText(getContext(), "New High: "+score, Toast.  LENGTH_SHORT).show();
     }
 
-    public void getHscore(String MODE4)
+    public void getHscore()
     {
         String URL = "content://infinnov.udacity.capstoneproject/scores/1";
 
@@ -208,7 +208,7 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
             for(int j=0 ; j<4 ; j++)
                 str.append(arrval[i][j]).append(",");
         }
-        editor.putString(MODE4 + "arrval", str.toString());
+        editor.putString("arrval", str.toString());
 
 
         StringBuilder str1 = new StringBuilder();
@@ -217,8 +217,8 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
             for(int j=0 ; j<4 ; j++)
                 str1.append(arrbool[i][j]).append(",");
         }
-        editor.putString(MODE4 + "arrbool", str1.toString());
-        editor.putInt(MODE4 +"score", score);
+        editor.putString("arrbool", str1.toString());
+        editor.putInt("score", score);
 
         editor.commit();	//saves the prefs
         /*
@@ -236,7 +236,7 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
         //finalize();
 
         SharedPreferences prefs = this.getActivity().getPreferences(MODE_PRIVATE);
-        String savedString = prefs.getString(MODE4 + "arrval", "");
+        String savedString = prefs.getString("arrval", "");
         StringTokenizer st = new StringTokenizer(savedString, ",");
         if(savedString.equalsIgnoreCase(""))
         {
@@ -253,7 +253,7 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
             }
         }
 
-        String savedString1 = prefs.getString(MODE4 + "arrbool", "");
+        String savedString1 = prefs.getString("arrbool", "");
         StringTokenizer st1 = new StringTokenizer(savedString1, ",");
         if(savedString1.equalsIgnoreCase(""))
         {
@@ -268,9 +268,9 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
                 for(int j=0 ; j<4 ; j++)
                     arrbool[i][j] = Boolean.valueOf(st1.nextToken());
             }
-            getHscore(MODE4);
+            getHscore();
             setimgwin();
-            score = prefs.getInt(MODE4+"score", 0);
+            score = prefs.getInt("score", 0);
             lblscore.setText("SCORE : "+ score);
             lblhscore.setText("HIGH SCORE : "+ HSCORE);
             for (int i = 0; i < 4; i++)
