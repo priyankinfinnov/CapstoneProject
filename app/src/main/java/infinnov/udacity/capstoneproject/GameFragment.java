@@ -22,6 +22,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.squareup.picasso.Picasso;
 
 import java.util.Random;
@@ -72,6 +75,7 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
     MediaPlayer mnojoin;
     //static Animation animationFadeIn;
 
+    public InterstitialAd mInterstitialAd;
     public GameFragment() {
     }
 
@@ -109,18 +113,40 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
             @Override
             public void onClick(View arg0) {
                 // TODO Auto-generated method stub
-                resetgame();
-                createnew(arrbool , arrval , img);
+                if (mInterstitialAd.isLoaded()) {
+                    mInterstitialAd.show();
+                }
+                //resetgame();
+                //createnew(arrbool , arrval , img);
             }
         });
-
+        mInterstitialAd = new InterstitialAd(getContext());
         view.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 return mDetector.onTouchEvent(event);
             }
         });
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                requestNewInterstitial();
+                resetgame();
+            }
+        });
+
+        requestNewInterstitial();
         return view;
+    }
+
+    private void requestNewInterstitial() {
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice("SEE_YOUR_LOGCAT_TO_GET_YOUR_DEVICE_ID")
+                .build();
+
+        mInterstitialAd.loadAd(adRequest);
     }
 
     public void setscore()
