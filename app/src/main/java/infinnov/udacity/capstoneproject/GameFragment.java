@@ -113,11 +113,8 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
             @Override
             public void onClick(View arg0) {
                 // TODO Auto-generated method stub
-                if (mInterstitialAd.isLoaded()) {
-                    mInterstitialAd.show();
-                }
-                //resetgame();
-                //createnew(arrbool , arrval , img);
+                resetgame();
+                createnew(arrbool , arrval , img);
             }
         });
         mInterstitialAd = new InterstitialAd(getContext());
@@ -318,9 +315,14 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
         if (x == 2048)
         {
             Picasso.with(getContext()).load(R.drawable.a2048).into(img[i][j]);
+            if (mInterstitialAd.isLoaded()) {
+                mInterstitialAd.show();
+            }else{
+                resetgame();
+            }
             //Games.Achievements.unlock(getApiClient(), getString(R.string.achievement_won_normal));
             //showDialog(1);
-            resetgame();
+            //resetgame();
         }
     }
 
