@@ -20,4 +20,8 @@
     </string>
     <string name="title_activity_login_home">LoginHome</string>
     <string name="signedin_fmt">abcd</string>
+
+    <string name="leaderboard">Leaderboard</string>
+    <string name="highscore">Highscore</string>
+    <string name="play">Play</string>
 </resources>
