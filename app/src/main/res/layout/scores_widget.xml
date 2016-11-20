@@ -18,7 +18,8 @@
         android:text="@string/appwidget_text"
         android:textColor="#ffffff"
         android:textSize="24sp"
-        android:textStyle="bold|italic" />
+        android:textStyle="bold|italic"
+        />
     
     <Button
         android:id="@+id/btawPlay"
@@ -27,6 +28,7 @@
         android:layout_alignParentEnd="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/appwidget_button"/>
+        android:text="@string/appwidget_button"
+        android:contentDescription="@string/cd_widgetbreakit"/>
 
 </RelativeLayout>

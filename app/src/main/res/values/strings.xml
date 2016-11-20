@@ -24,4 +24,31 @@
     <string name="leaderboard">Leaderboard</string>
     <string name="highscore">Highscore</string>
     <string name="play">Play</string>
+
+
+
+
+    <string name="cd_widgetbreakit">Play Button</string>
+    <string name="cd_googlesignin">Google Signin Button</string>
+    <string name="cd_yourpic">Your Photo</string>
+    <string name="cd_play">Play Button</string>
+    <string name="cd_startimg">Start Image</string>
+    <string name="cd_winimg">Win Image</string>
+    <string name="cd_restartgame">Restart Game</string>
+    <string name="cd_pb11">Picture 1 1</string>
+    <string name="cd_pb12">Picture 1 2</string>
+    <string name="cd_pb13">Picture 1 3</string>
+    <string name="cd_pb14">Picture 1 4</string>
+    <string name="cd_pb21">Picture 2 1</string>
+    <string name="cd_pb22">Picture 2 2</string>
+    <string name="cd_pb23">Picture 2 3</string>
+    <string name="cd_pb24">Picture 2 4</string>
+    <string name="cd_pb31">Picture 3 1</string>
+    <string name="cd_pb32">Picture 3 2</string>
+    <string name="cd_pb33">Picture 3 3</string>
+    <string name="cd_pb34">Picture 3 4</string>
+    <string name="cd_pb41">Picture 4 1</string>
+    <string name="cd_pb42">Picture 4 2</string>
+    <string name="cd_pb43">Picture 4 3</string>
+    <string name="cd_pb44">Picture 4 4</string>
 </resources>

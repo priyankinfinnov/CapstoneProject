@@ -113,6 +113,9 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
             @Override
             public void onClick(View arg0) {
                 // TODO Auto-generated method stub
+                if (mInterstitialAd.isLoaded()) {
+                    mInterstitialAd.show();
+                }
                 resetgame();
                 createnew(arrbool , arrval , img);
             }
