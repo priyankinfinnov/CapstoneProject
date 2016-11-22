@@ -24,6 +24,9 @@
     <string name="leaderboard">Leaderboard</string>
     <string name="highscore">Highscore</string>
     <string name="play">Play</string>
+    <string name="gobackpress">Press Again To Go Back</string>
+    <string name="wintext">You Win :)</string>
+    <string name="loosetext">You Loose :(</string>
 
 
 

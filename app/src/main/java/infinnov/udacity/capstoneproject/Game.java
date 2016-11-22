@@ -52,7 +52,7 @@ public class Game extends AppCompatActivity {
             if (back ==0 )
             {
                 back =1;
-                Toast.makeText(this, "Press again to go BACK", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.gobackpress), Toast.LENGTH_SHORT).show();
             }
             else
                 finish();
@@ -66,9 +66,9 @@ public class Game extends AppCompatActivity {
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         if(id ==1 )			// win
-            builder.setMessage("you win ");
+            builder.setMessage(getString(R.string.wintext));
         else
-            builder.setMessage("you loose");
+            builder.setMessage(getString(R.string.loosetext));
         alert = builder.create();
         return alert;
     }
