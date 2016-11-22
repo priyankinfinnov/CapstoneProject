@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -28,7 +30,7 @@ import com.squareup.picasso.Picasso;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class LoginHome extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
+public class LoginHome extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, LoaderManager.LoaderCallbacks<Cursor>  {
 
     GoogleApiClient mGoogleApiClient;
     final static int RC_SIGN_IN = 1;
@@ -37,7 +39,6 @@ public class LoginHome extends AppCompatActivity implements GoogleApiClient.OnCo
     @BindView(R.id.tvHighScore)    TextView tvHighScore;
     @BindView(R.id.btnPlay)    Button btnPlay;
     @BindView(R.id.sign_in_button)    com.google.android.gms.common.SignInButton sign_in_button;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,30 +101,36 @@ public class LoginHome extends AppCompatActivity implements GoogleApiClient.OnCo
             tvHighScore.setVisibility(View.VISIBLE);
             btnPlay.setVisibility(View.VISIBLE);
             Picasso.with(this.getApplicationContext()).load(acct.getPhotoUrl()).into(ivPlayerImage);
-
-            String URL = "content://infinnov.udacity.capstoneproject/scores/1";
-
-            Uri scoreUri = Uri.parse(URL);
-            //Cursor c = managedQuery(scoreUri, null, null, null, "score");
-            CursorLoader cursorLoader = new CursorLoader(this.getApplicationContext(), scoreUri,
-                    null, null, null, null);
-            Cursor c = cursorLoader.loadInBackground();
-
-            if (c.moveToFirst()) {
-                Integer Score = c.getInt(c.getColumnIndex( ScoreProvider.SCORE));
-                tvHighScore.setText("Your High "+Score);
-                //Toast.makeText(getApplicationContext(), "Your High "+Score, Toast.LENGTH_SHORT).show();
-            }
-            //mStatusTextView.setText(getString(R.string.signedin_fmt, acct.getDisplayName()));
-            //updateUI(true);
+            getSupportLoaderManager().initLoader(1, null, this);
         } else {
-            // Signed out, show unauthenticated UI.
-            //updateUI(false);
         }
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         Log.d("Nuances App", "--------------------------Signin FIALED");
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        String URL = "content://infinnov.udacity.capstoneproject/scores/1";
+
+        Uri scoreUri = Uri.parse(URL);
+        CursorLoader cursorLoader = new CursorLoader(this.getApplicationContext(), scoreUri,
+                null, null, null, null);
+        return cursorLoader;
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor c) {
+        if (c.moveToFirst()) {
+            Integer Score = c.getInt(c.getColumnIndex( ScoreProvider.SCORE));
+            tvHighScore.setText(getString(R.string.highscore)+ " "+Score);
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+
     }
 }

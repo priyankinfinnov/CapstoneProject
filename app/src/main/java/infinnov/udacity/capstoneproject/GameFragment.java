@@ -164,8 +164,8 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
             updatehscore(score);
             HSCORE = score;
         }
-        lblscore.setText("SCORE : "+score);
-        lblhscore.setText("HIGH SCORE : "+ HSCORE);
+        lblscore.setText(getString(R.string.score)+ " "+ score);
+        lblhscore.setText(getString(R.string.highscore)+ " "+ HSCORE);
     }
 
     public void updatehscore(int score)
@@ -179,7 +179,7 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
         Uri scoreUri = Uri.parse(URL);
         int returned = this.getActivity().getContentResolver().update(
                 scoreUri, values, null, null);
-        Toast.makeText(getContext(), "New High: "+score, Toast.  LENGTH_SHORT).show();
+        Toast.makeText(getContext(), getString(R.string.newhigh)+": "+score, Toast.  LENGTH_SHORT).show();
     }
 
     public void getHscore()
@@ -187,14 +187,13 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
         String URL = "content://infinnov.udacity.capstoneproject/scores/1";
 
         Uri scoreUri = Uri.parse(URL);
-        //Cursor c = managedQuery(scoreUri, null, null, null, "score");
         CursorLoader cursorLoader = new CursorLoader(getContext(), scoreUri,
                 null, null, null, null);
         Cursor c = cursorLoader.loadInBackground();
 
         if (c.moveToFirst()) {
             HSCORE = c.getInt(c.getColumnIndex( ScoreProvider.SCORE));
-            Toast.makeText(getContext(), "High Score is: "+HSCORE, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), "High Score is: "+HSCORE, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -274,8 +273,8 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
             getHscore();
             setimgwin();
             score = prefs.getInt("score", 0);
-            lblscore.setText("SCORE : "+ score);
-            lblhscore.setText("HIGH SCORE : "+ HSCORE);
+            lblscore.setText(getString(R.string.score)+ " "+ score);
+            lblhscore.setText(getString(R.string.highscore)+ " "+ HSCORE);
             for (int i = 0; i < 4; i++)
             {
                 for(int j=0 ; j<4 ; j++)
