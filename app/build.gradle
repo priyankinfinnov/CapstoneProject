@@ -7,7 +7,7 @@ android {
         release {
             keyAlias 'udacitycapstone'
             keyPassword 'udacitycapstone1'
-            storeFile file('D:/AndroidWorkspace/CapstoneProject/KEY_STORE/udacitycapstone.jks')
+            storeFile file("$rootDir/KEY_STORE/udacitycapstone.jks")
             storePassword 'udacitycapstone'
         }
     }
