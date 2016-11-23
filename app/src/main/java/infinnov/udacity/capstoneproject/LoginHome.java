@@ -123,6 +123,7 @@ public class LoginHome extends AppCompatActivity implements GoogleApiClient.OnCo
             GetWorldHighScore runner = new GetWorldHighScore();
             runner.execute(worldhighscoreurl);
         } else {
+            Log.d("Nuances App", "--------------------------Signin FIALED with handleSignInResult");
         }
     }
 
