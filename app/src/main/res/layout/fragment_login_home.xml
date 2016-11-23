@@ -60,6 +60,20 @@
             android:paddingEnd="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+            <TextView
+                android:textAlignment="center"
+                android:textSize="25sp"
+                android:text="@string/worldhighscore"
+                android:id="@+id/tvWorldHighScore"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
             <Button
                 android:text="@string/play"
                 android:contentDescription="@string/cd_play"

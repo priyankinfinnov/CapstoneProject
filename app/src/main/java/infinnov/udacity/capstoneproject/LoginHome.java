@@ -3,6 +3,7 @@ package infinnov.udacity.capstoneproject;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -27,6 +28,17 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -34,9 +46,13 @@ public class LoginHome extends AppCompatActivity implements GoogleApiClient.OnCo
 
     GoogleApiClient mGoogleApiClient;
     final static int RC_SIGN_IN = 1;
+    final static String worldhighscoreurl = "http://cutshort-data.s3.amazonaws.com/cloudfront/public/temporary/highscore.json";
+
+            //"https://docs.google.com/document/d/e/2PACX-1vQKM2YvkYSHxhURLX8XfeFUW3VMzl8JyKwErk0G7TYXGfBRU9JQnMs4jGy7g5XUjG45VvThK1N9eifG/pub?embedded=true";//https://www.dropbox.com/s/w52qqbbaucxqkmb/highscore.json?dl=0";
 
     @BindView(R.id.ivPlayerImage)    ImageView ivPlayerImage;
     @BindView(R.id.tvHighScore)    TextView tvHighScore;
+    @BindView(R.id.tvWorldHighScore)    TextView tvWorldHighScore;
     @BindView(R.id.btnPlay)    Button btnPlay;
     @BindView(R.id.sign_in_button)    com.google.android.gms.common.SignInButton sign_in_button;
 
@@ -70,6 +86,7 @@ public class LoginHome extends AppCompatActivity implements GoogleApiClient.OnCo
         });
         ivPlayerImage.setVisibility(View.GONE);
         tvHighScore.setVisibility(View.GONE);
+        tvWorldHighScore.setVisibility(View.GONE);
         btnPlay.setVisibility(View.GONE);
     }
 
@@ -99,9 +116,12 @@ public class LoginHome extends AppCompatActivity implements GoogleApiClient.OnCo
             sign_in_button.setVisibility(View.GONE);
             ivPlayerImage.setVisibility(View.VISIBLE);
             tvHighScore.setVisibility(View.VISIBLE);
+            tvWorldHighScore.setVisibility(View.VISIBLE);
             btnPlay.setVisibility(View.VISIBLE);
             Picasso.with(this.getApplicationContext()).load(acct.getPhotoUrl()).into(ivPlayerImage);
             getSupportLoaderManager().initLoader(1, null, this);
+            GetWorldHighScore runner = new GetWorldHighScore();
+            runner.execute(worldhighscoreurl);
         } else {
         }
     }
@@ -132,5 +152,53 @@ public class LoginHome extends AppCompatActivity implements GoogleApiClient.OnCo
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
 
+    }
+
+    private class GetWorldHighScore extends AsyncTask<String, String, String> {
+
+        private String resp;
+        private TextView whs;
+
+        public GetWorldHighScore(){
+            this.whs = tvWorldHighScore;
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+                URL url = new URL(params[0]);
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+
+                InputStream stream = new BufferedInputStream(urlConnection.getInputStream());
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(stream));
+                StringBuilder builder = new StringBuilder();
+
+                String inputString;
+                while ((inputString = bufferedReader.readLine()) != null) {
+                    builder.append(inputString);
+                }
+                //Log.e("-----------",""+builder.toString());
+                JSONObject topLevel = new JSONObject(builder.toString());
+
+                resp = topLevel.getString("score");
+                //Log.e("-----------",""+resp);
+                urlConnection.disconnect();
+            } catch (IOException | JSONException e) {
+                e.printStackTrace();
+            }
+            return resp;
+        }
+
+
+        @Override
+        protected void onPostExecute(String result) {
+            // execution of result of Long time consuming operation
+            whs.setText(getString(R.string.worldhighscore)+" " + result);
+        }
+
+
+        @Override
+        protected void onPreExecute() {
+        }
     }
 }

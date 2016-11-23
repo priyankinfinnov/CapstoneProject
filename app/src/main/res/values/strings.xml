@@ -23,6 +23,7 @@
 
     <string name="leaderboard">Leaderboard</string>
     <string name="highscore">Highscore</string>
+    <string name="worldhighscore">World Highscore</string>
     <string name="score">Score</string>New High
     <string name="newhigh">Score</string>
     <string name="play">Play</string>
