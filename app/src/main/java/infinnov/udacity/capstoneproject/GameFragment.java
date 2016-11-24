@@ -5,9 +5,8 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.view.GestureDetectorCompat;
 import android.util.Log;
@@ -16,8 +15,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,44 +35,61 @@ import static android.content.Context.MODE_PRIVATE;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class GameFragment extends Fragment implements GestureDetector.OnGestureListener  {
+public class GameFragment extends Fragment implements GestureDetector.OnGestureListener {
 
-    @BindView(R.id.pb11) ImageView pb11;
-    @BindView(R.id.pb12) ImageView pb12;
-    @BindView(R.id.pb13) ImageView pb13;
-    @BindView(R.id.pb14) ImageView pb14;
-    @BindView(R.id.pb21) ImageView pb21;
-    @BindView(R.id.pb22) ImageView pb22;
-    @BindView(R.id.pb23) ImageView pb23;
-    @BindView(R.id.pb24) ImageView pb24;
-    @BindView(R.id.pb31) ImageView pb31;
-    @BindView(R.id.pb32) ImageView pb32;
-    @BindView(R.id.pb33) ImageView pb33;
-    @BindView(R.id.pb34) ImageView pb34;
-    @BindView(R.id.pb41) ImageView pb41;
-    @BindView(R.id.pb42) ImageView pb42;
-    @BindView(R.id.pb43) ImageView pb43;
-    @BindView(R.id.pb44) ImageView pb44;
-
-    @BindView(R.id.imgstart) ImageView imgstart;
-
-    private GestureDetectorCompat mDetector;
-
-    final int[][] arrval= new int[4][4];
-    final Boolean[][] arrbool= new Boolean[4][4];
-    final ImageView[][] img = new ImageView[4][4];
-    static int score = 0 ;
+    static int score = 0;
     static int HSCORE = 0;
     //static String MODE4= "";
-    static String music="";
-    @BindView(R.id.lblhscore)    TextView lblhscore;
-    @BindView(R.id.lblscore) TextView lblscore;
-    @BindView(R.id.reset) TextView reset;
+    static String music = "";
+    final int[][] arrval = new int[4][4];
+    final Boolean[][] arrbool = new Boolean[4][4];
+    final ImageView[][] img = new ImageView[4][4];
+    public InterstitialAd mInterstitialAd;
+    @BindView(R.id.pb11)
+    ImageView pb11;
+    @BindView(R.id.pb12)
+    ImageView pb12;
+    @BindView(R.id.pb13)
+    ImageView pb13;
+    @BindView(R.id.pb14)
+    ImageView pb14;
+    @BindView(R.id.pb21)
+    ImageView pb21;
+    @BindView(R.id.pb22)
+    ImageView pb22;
+    @BindView(R.id.pb23)
+    ImageView pb23;
+    @BindView(R.id.pb24)
+    ImageView pb24;
+    @BindView(R.id.pb31)
+    ImageView pb31;
+    @BindView(R.id.pb32)
+    ImageView pb32;
+    @BindView(R.id.pb33)
+    ImageView pb33;
+    @BindView(R.id.pb34)
+    ImageView pb34;
+    @BindView(R.id.pb41)
+    ImageView pb41;
+    @BindView(R.id.pb42)
+    ImageView pb42;
+    @BindView(R.id.pb43)
+    ImageView pb43;
+    @BindView(R.id.pb44)
+    ImageView pb44;
+    @BindView(R.id.imgstart)
+    ImageView imgstart;
+    @BindView(R.id.lblhscore)
+    TextView lblhscore;
+    @BindView(R.id.lblscore)
+    TextView lblscore;
+    @BindView(R.id.reset)
+    TextView reset;
     MediaPlayer mjoin;
     MediaPlayer mnojoin;
     //static Animation animationFadeIn;
+    private GestureDetectorCompat mDetector;
 
-    public InterstitialAd mInterstitialAd;
     public GameFragment() {
     }
 
@@ -84,11 +98,11 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_game, container, false);
         view.setLongClickable(true);
-        Log.e("====================","+++++++++++++++++++++++++++++++");
+        Log.e("====================", "+++++++++++++++++++++++++++++++");
 
-        ButterKnife.bind(this,view);
+        ButterKnife.bind(this, view);
         //animationFadeIn = AnimationUtils.loadAnimation(getContext() , R.anim.fadein);
-        mDetector = new GestureDetectorCompat(getContext(),this);
+        mDetector = new GestureDetectorCompat(getContext(), this);
 
         img[0][0] = pb11;
         img[0][1] = pb12;
@@ -117,7 +131,7 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
                     mInterstitialAd.show();
                 }
                 resetgame();
-                createnew(arrbool , arrval , img);
+                createnew(arrbool, arrval, img);
             }
         });
         mInterstitialAd = new InterstitialAd(getContext());
@@ -149,27 +163,23 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
         mInterstitialAd.loadAd(adRequest);
     }
 
-    public void setscore()
-    {
+    public void setscore() {
         score = 0;
-        for(int i=0; i<4 ;i++)
-        {
-            for(int j=0; j<4 ; j++)
-            {
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
                 score = score + (arrval[i][j] * 2);
             }
         }
-        if(score > HSCORE)	//
+        if (score > HSCORE)    //
         {
             updatehscore(score);
             HSCORE = score;
         }
-        lblscore.setText(getString(R.string.score)+ " "+ score);
-        lblhscore.setText(getString(R.string.highscore)+ " "+ HSCORE);
+        lblscore.setText(getString(R.string.score) + " " + score);
+        lblhscore.setText(getString(R.string.highscore) + " " + HSCORE);
     }
 
-    public void updatehscore(int score)
-    {
+    public void updatehscore(int score) {
         ContentValues values = new ContentValues();
         values.put(ScoreProvider._ID, 1);
         values.put(ScoreProvider.SCORE, score);
@@ -179,11 +189,10 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
         Uri scoreUri = Uri.parse(URL);
         int returned = this.getActivity().getContentResolver().update(
                 scoreUri, values, null, null);
-        Toast.makeText(getContext(), getString(R.string.newhigh)+": "+score, Toast.  LENGTH_SHORT).show();
+        Toast.makeText(getContext(), getString(R.string.newhigh) + ": " + score, Toast.LENGTH_SHORT).show();
     }
 
-    public void getHscore()
-    {
+    public void getHscore() {
         String URL = "content://infinnov.udacity.capstoneproject/scores/1";
 
         Uri scoreUri = Uri.parse(URL);
@@ -192,7 +201,7 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
         Cursor c = cursorLoader.loadInBackground();
 
         if (c.moveToFirst()) {
-            HSCORE = c.getInt(c.getColumnIndex( ScoreProvider.SCORE));
+            HSCORE = c.getInt(c.getColumnIndex(ScoreProvider.SCORE));
             //Toast.makeText(getContext(), "High Score is: "+HSCORE, Toast.LENGTH_SHORT).show();
         }
     }
@@ -202,27 +211,25 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
         super.onPause();
 
         SharedPreferences prefs = this.getActivity().getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor editor= prefs.edit();
+        SharedPreferences.Editor editor = prefs.edit();
 
         StringBuilder str = new StringBuilder();
-        for (int i = 0; i < 4; i++)
-        {
-            for(int j=0 ; j<4 ; j++)
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++)
                 str.append(arrval[i][j]).append(",");
         }
         editor.putString("arrval", str.toString());
 
 
         StringBuilder str1 = new StringBuilder();
-        for (int i = 0; i < 4; i++)
-        {
-            for(int j=0 ; j<4 ; j++)
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++)
                 str1.append(arrbool[i][j]).append(",");
         }
         editor.putString("arrbool", str1.toString());
         editor.putInt("score", score);
 
-        editor.commit();	//saves the prefs
+        editor.commit();    //saves the prefs
         /*
         if(gac.isConnected())
         {
@@ -240,56 +247,45 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
         SharedPreferences prefs = this.getActivity().getPreferences(MODE_PRIVATE);
         String savedString = prefs.getString("arrval", "");
         StringTokenizer st = new StringTokenizer(savedString, ",");
-        if(savedString.equalsIgnoreCase(""))
-        {
+        if (savedString.equalsIgnoreCase("")) {
             resetgame();
             createnew(arrbool, arrval, img);
             setimgwin();
-        }
-        else
-        {
-            for (int i = 0; i < 4; i++)
-            {
-                for(int j=0 ; j<4 ; j++)
+        } else {
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 4; j++)
                     arrval[i][j] = Integer.parseInt(st.nextToken());
             }
         }
 
         String savedString1 = prefs.getString("arrbool", "");
         StringTokenizer st1 = new StringTokenizer(savedString1, ",");
-        if(savedString1.equalsIgnoreCase(""))
-        {
+        if (savedString1.equalsIgnoreCase("")) {
             resetgame();
             createnew(arrbool, arrval, img);
             setimgwin();
-        }
-        else
-        {
-            for (int i = 0; i < 4; i++)
-            {
-                for(int j=0 ; j<4 ; j++)
+        } else {
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 4; j++)
                     arrbool[i][j] = Boolean.valueOf(st1.nextToken());
             }
             getHscore();
             setimgwin();
             score = prefs.getInt("score", 0);
-            lblscore.setText(getString(R.string.score)+ " "+ score);
-            lblhscore.setText(getString(R.string.highscore)+ " "+ HSCORE);
-            for (int i = 0; i < 4; i++)
-            {
-                for(int j=0 ; j<4 ; j++)
-                {
-                    setimg(i ,j ,arrbool , arrval ,  img);
+            lblscore.setText(getString(R.string.score) + " " + score);
+            lblhscore.setText(getString(R.string.highscore) + " " + HSCORE);
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 4; j++) {
+                    setimg(i, j, arrbool, arrval, img);
                 }
             }
         }
         //gac.connect();
     }
 
-    public void setimg(int i , int j , Boolean[][] arrbool , int[][] arrval , ImageView[][] img)
-    {
-        int x=arrval[i][j];
-        if(x == 0)
+    public void setimg(int i, int j, Boolean[][] arrbool, int[][] arrval, ImageView[][] img) {
+        int x = arrval[i][j];
+        if (x == 0)
             Picasso.with(getContext()).load(R.drawable.blank).into(img[i][j]);
         if (x == 2)
             Picasso.with(getContext()).load(R.drawable.a2bb).into(img[i][j]);
@@ -303,8 +299,7 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
             Picasso.with(getContext()).load(R.drawable.a32bb).into(img[i][j]);
         if (x == 64)
             Picasso.with(getContext()).load(R.drawable.a64bb).into(img[i][j]);
-        if (x == 128)
-        {
+        if (x == 128) {
             Picasso.with(getContext()).load(R.drawable.a128bb).into(img[i][j]);
             //Games.Achievements.unlock(getApiClient(), getString(R.string.achievement_half_way__normal));
         }
@@ -314,12 +309,11 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
             Picasso.with(getContext()).load(R.drawable.a512bb).into(img[i][j]);
         if (x == 1024)
             Picasso.with(getContext()).load(R.drawable.a1024bb).into(img[i][j]);
-        if (x == 2048)
-        {
+        if (x == 2048) {
             Picasso.with(getContext()).load(R.drawable.a2048).into(img[i][j]);
             if (mInterstitialAd.isLoaded()) {
                 mInterstitialAd.show();
-            }else{
+            } else {
                 resetgame();
             }
             //Games.Achievements.unlock(getApiClient(), getString(R.string.achievement_won_normal));
@@ -328,216 +322,175 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
         }
     }
 
-    public void setimgnew(int i , int j , ImageView[][] img)
-    {
+    public void setimgnew(int i, int j, ImageView[][] img) {
         Picasso.with(getContext()).load(R.drawable.a2bb).into(img[i][j]);
     }
 
-    public void checkloose()
-    {
+    public void checkloose() {
         int flag = 0;
-        for (int i = 0; i < 4; i++)
-        {
-            for (int j = 0; j < 4; j++)
-            {
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
                 if (arrbool[i][j] == false)
                     flag = 1;
                 else
                     continue;
             }
         }
-        if (flag == 0)
-        {
+        if (flag == 0) {
             //showDialog(2);
             resetgame();
         }
     }
 
-    public void createnew( Boolean[][] arrbool , int[][] arrval , ImageView[][] img)
-    {
+    public void createnew(Boolean[][] arrbool, int[][] arrval, ImageView[][] img) {
         int flag = 0;
         int x, y;
         Random rnd = new Random();
-        while (flag == 0)
-        {
+        while (flag == 0) {
             x = rnd.nextInt(4);
             y = rnd.nextInt(4);
-            if (arrbool[x][y] == false)
-            {
+            if (arrbool[x][y] == false) {
                 arrbool[x][y] = true;
                 arrval[x][y] = 2;
-                setimgnew(x, y , img);
+                setimgnew(x, y, img);
                 flag = 1;
-            }
-            else
+            } else
                 flag = 0;
         }
     }
 
-    public void resetgame()
-    {
+    public void resetgame() {
         score = 0;
-        for(int i=0; i<4 ;i++)
-        {
-            for(int j=0; j<4 ; j++)
-            {
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
                 Picasso.with(getContext()).load(R.drawable.blank).into(img[i][j]);
                 arrval[i][j] = 0;
                 arrbool[i][j] = false;
             }
         }
-        createnew(arrbool , arrval , img);
+        createnew(arrbool, arrval, img);
         setscore();
     }
 
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-        Log.e("fling","------------------");
+        Log.e("fling", "------------------");
         // TODO Auto-generated method stub
         final int SWIPE_THRESHOLD = 30;              //swip distance
         final int SWIPE_VELOCITY_THRESHOLD = 50;     //swip velocity.
         float diffY = e2.getY() - e1.getY();
         float diffX = e2.getX() - e1.getX();
-        int sound =0;
-        if (Math.abs(diffX) > Math.abs(diffY))
-        {
-            if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD)
-            {
-                if (diffX > 0)
-                {	//right
+        int sound = 0;
+        if (Math.abs(diffX) > Math.abs(diffY)) {
+            if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
+                if (diffX > 0) {    //right
                     int flag = 1;
-                    for (int i = 0; i < 4; i++)
-                    {
-                        for (int j = 2; j >=0; j--)
-                        {
-                            if (arrbool[i][j] == true && arrbool[i][ j + 1] == false)
-                            {           //shift to right
-                                arrval[i][ j + 1] = arrval[i][ j];
+                    for (int i = 0; i < 4; i++) {
+                        for (int j = 2; j >= 0; j--) {
+                            if (arrbool[i][j] == true && arrbool[i][j + 1] == false) {           //shift to right
+                                arrval[i][j + 1] = arrval[i][j];
                                 arrval[i][j] = 0;
                                 arrbool[i][j + 1] = true;
                                 arrbool[i][j] = false;
-                                setimg(i, j , arrbool , arrval , img);
-                                setimg(i, j + 1 , arrbool , arrval , img);
+                                setimg(i, j, arrbool, arrval, img);
+                                setimg(i, j + 1, arrbool, arrval, img);
                                 flag = 0;
-                            }
-                            else  //check if next right matches
+                            } else  //check if next right matches
                                 flag = 1;
                             if (flag == 0)
                                 j = 2;
                         }
                     }
-                    for (int i = 0; i < 4; i++)
-                    {
-                        for (int j = 2; j >= 0; j--)
-                        {
-                            if (arrbool[i][j] == true && arrbool[i][ j + 1] == true && arrval[i][ j] == arrval[i][ j + 1])
-                            {            //combine to right
-                                arrval[i][ j + 1] = 2 * arrval[i][ j];
-                                arrval[i][ j] = 0;
-                                arrbool[i][ j] = false;
-                                setimg(i, j , arrbool , arrval , img);
-                                setimg(i, j + 1 , arrbool , arrval , img);
-                                sound=1;
+                    for (int i = 0; i < 4; i++) {
+                        for (int j = 2; j >= 0; j--) {
+                            if (arrbool[i][j] == true && arrbool[i][j + 1] == true && arrval[i][j] == arrval[i][j + 1]) {            //combine to right
+                                arrval[i][j + 1] = 2 * arrval[i][j];
+                                arrval[i][j] = 0;
+                                arrbool[i][j] = false;
+                                setimg(i, j, arrbool, arrval, img);
+                                setimg(i, j + 1, arrbool, arrval, img);
+                                sound = 1;
                             }
                         }
                     }
                     flag = 1;
-                    for (int i = 0; i < 4; i++)
-                    {
-                        for (int j = 2; j >= 0; j--)
-                        {
-                            if (arrbool[i][j] == true && arrbool[i][j + 1] == false)
-                            {            //shift to right
-                                arrval[i][ j + 1] = arrval[i][ j];
+                    for (int i = 0; i < 4; i++) {
+                        for (int j = 2; j >= 0; j--) {
+                            if (arrbool[i][j] == true && arrbool[i][j + 1] == false) {            //shift to right
+                                arrval[i][j + 1] = arrval[i][j];
                                 arrval[i][j] = 0;
-                                arrbool[i][ j + 1] = true;
-                                arrbool[i][ j] = false;
-                                setimg(i, j , arrbool , arrval , img);
-                                setimg(i, j + 1 , arrbool , arrval , img);
+                                arrbool[i][j + 1] = true;
+                                arrbool[i][j] = false;
+                                setimg(i, j, arrbool, arrval, img);
+                                setimg(i, j + 1, arrbool, arrval, img);
                                 flag = 0;
-                            }
-                            else  //check if next right matches
+                            } else  //check if next right matches
                                 flag = 1;
                             if (flag == 0)
                                 j = 2;
                         }
                     }
                     checkloose();
-                    createnew(arrbool , arrval , img);
+                    createnew(arrbool, arrval, img);
                     setscore();
-                    if(music.equalsIgnoreCase("ON"))
-                    {
-                        if(sound ==0 )
+                    if (music.equalsIgnoreCase("ON")) {
+                        if (sound == 0)
                             mnojoin.start();
                         else
                             mjoin.start();
                     }
-                }
-                else
-                {//left
+                } else {//left
                     int flag = 1;
-                    for (int i = 0; i < 4; i++)
-                    {
-                        for (int j = 1; j < 4; j++)
-                        {
-                            if (arrbool[i][j] == true && arrbool[i][ j - 1] == false)
-                            {            //shift to left
-                                arrval[i][ j - 1] = arrval[i][j];
-                                arrval[i][ j] = 0;
-                                arrbool[i][ j - 1] = true;
+                    for (int i = 0; i < 4; i++) {
+                        for (int j = 1; j < 4; j++) {
+                            if (arrbool[i][j] == true && arrbool[i][j - 1] == false) {            //shift to left
+                                arrval[i][j - 1] = arrval[i][j];
+                                arrval[i][j] = 0;
+                                arrbool[i][j - 1] = true;
                                 arrbool[i][j] = false;
-                                setimg(i, j , arrbool , arrval , img);
-                                setimg(i, j - 1 , arrbool , arrval  , img);
+                                setimg(i, j, arrbool, arrval, img);
+                                setimg(i, j - 1, arrbool, arrval, img);
                                 flag = 0;
-                            }
-                            else  //check if next left matches
+                            } else  //check if next left matches
                                 flag = 1;
                             if (flag == 0)
                                 j = 0;
                         }
                     }
-                    for (int i = 0; i < 4; i++)
-                    {
-                        for (int j = 1; j < 4; j++)
-                        {
-                            if (arrbool[i][j] == true && arrbool[i][j - 1] == true && arrval[i][j] == arrval[i][ j - 1])
-                            {            //combine to left
-                                arrval[i][ j - 1] = 2 * arrval[i][ j];
-                                arrval[i][ j] = 0;
-                                arrbool[i][ j] = false;
-                                setimg(i, j , arrbool , arrval , img);
-                                setimg(i, j - 1 , arrbool , arrval , img);
-                                sound=1;
+                    for (int i = 0; i < 4; i++) {
+                        for (int j = 1; j < 4; j++) {
+                            if (arrbool[i][j] == true && arrbool[i][j - 1] == true && arrval[i][j] == arrval[i][j - 1]) {            //combine to left
+                                arrval[i][j - 1] = 2 * arrval[i][j];
+                                arrval[i][j] = 0;
+                                arrbool[i][j] = false;
+                                setimg(i, j, arrbool, arrval, img);
+                                setimg(i, j - 1, arrbool, arrval, img);
+                                sound = 1;
                             }
                         }
                     }
                     flag = 1;
-                    for (int i = 0; i < 4; i++)
-                    {
-                        for (int j = 1; j < 4; j++)
-                        {
-                            if (arrbool[i][j] == true && arrbool[i][ j - 1] == false)
-                            {            //shift to left
+                    for (int i = 0; i < 4; i++) {
+                        for (int j = 1; j < 4; j++) {
+                            if (arrbool[i][j] == true && arrbool[i][j - 1] == false) {            //shift to left
                                 arrval[i][j - 1] = arrval[i][j];
                                 arrval[i][j] = 0;
-                                arrbool[i][ j - 1] = true;
+                                arrbool[i][j - 1] = true;
                                 arrbool[i][j] = false;
-                                setimg(i, j , arrbool , arrval , img);
-                                setimg(i, j - 1 , arrbool , arrval , img);
+                                setimg(i, j, arrbool, arrval, img);
+                                setimg(i, j - 1, arrbool, arrval, img);
                                 flag = 0;
-                            }
-                            else  //check if next left matches
+                            } else  //check if next left matches
                                 flag = 1;
-                            if(flag == 0)
+                            if (flag == 0)
                                 j = 0;
                         }
                     }
                     checkloose();
-                    createnew(arrbool , arrval , img);
+                    createnew(arrbool, arrval, img);
                     setscore();
-                    if(music.equalsIgnoreCase("ON"))
-                    {
-                        if(sound ==0 )
+                    if (music.equalsIgnoreCase("ON")) {
+                        if (sound == 0)
                             mnojoin.start();
                         else
                             mjoin.start();
@@ -545,144 +498,115 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
                 }
             }
             return true;
-        }
-        else if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD)
-        {
-            if (diffY > 0)
-            {//down
+        } else if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
+            if (diffY > 0) {//down
                 int flag = 1;
-                for (int i = 2; i >= 0; i--)
-                {
-                    for (int j = 0; j < 4; j++)
-                    {
-                        if (arrbool[i][j] == true && arrbool[i + 1][j] == false)
-                        {           //shift to down
-                            arrval[i + 1][j] = arrval[i][ j];
-                            arrval[i][ j] = 0;
-                            arrbool[i + 1][ j] = true;
-                            arrbool[i][ j] = false;
-                            setimg(i, j , arrbool , arrval , img);
-                            setimg(i + 1, j , arrbool , arrval , img);
+                for (int i = 2; i >= 0; i--) {
+                    for (int j = 0; j < 4; j++) {
+                        if (arrbool[i][j] == true && arrbool[i + 1][j] == false) {           //shift to down
+                            arrval[i + 1][j] = arrval[i][j];
+                            arrval[i][j] = 0;
+                            arrbool[i + 1][j] = true;
+                            arrbool[i][j] = false;
+                            setimg(i, j, arrbool, arrval, img);
+                            setimg(i + 1, j, arrbool, arrval, img);
                             flag = 0;
-                        }
-                        else  //check if next down matches
+                        } else  //check if next down matches
                             flag = 1;
                         if (flag == 0)
                             i = 2;
                     }
                 }
-                for (int i = 2; i >= 0; i--)
-                {
-                    for (int j = 0; j < 4; j++)
-                    {
-                        if (arrbool[i][ j] == true && arrbool[i + 1][ j] == true && arrval[i][ j] == arrval[i + 1][ j])
-                        {            //combine to down
-                            arrval[i + 1][ j] = 2 * arrval[i][ j];
-                            arrval[i][ j] = 0;
-                            arrbool[i][ j] = false;
-                            setimg(i, j , arrbool , arrval , img);
-                            setimg(i + 1, j , arrbool , arrval , img);
-                            sound=1;
+                for (int i = 2; i >= 0; i--) {
+                    for (int j = 0; j < 4; j++) {
+                        if (arrbool[i][j] == true && arrbool[i + 1][j] == true && arrval[i][j] == arrval[i + 1][j]) {            //combine to down
+                            arrval[i + 1][j] = 2 * arrval[i][j];
+                            arrval[i][j] = 0;
+                            arrbool[i][j] = false;
+                            setimg(i, j, arrbool, arrval, img);
+                            setimg(i + 1, j, arrbool, arrval, img);
+                            sound = 1;
                         }
                     }
                 }
                 flag = 1;
-                for (int i = 2; i >= 0; i--)
-                {
-                    for (int j = 0; j < 4; j++)
-                    {
-                        if (arrbool[i][j] == true && arrbool[i + 1][ j] == false)
-                        {           //shift to down
-                            arrval[i + 1][ j] = arrval[i][ j];
+                for (int i = 2; i >= 0; i--) {
+                    for (int j = 0; j < 4; j++) {
+                        if (arrbool[i][j] == true && arrbool[i + 1][j] == false) {           //shift to down
+                            arrval[i + 1][j] = arrval[i][j];
                             arrval[i][j] = 0;
-                            arrbool[i + 1][ j] = true;
-                            arrbool[i][ j] = false;
-                            setimg(i, j , arrbool , arrval , img);
-                            setimg(i + 1, j , arrbool , arrval , img);
+                            arrbool[i + 1][j] = true;
+                            arrbool[i][j] = false;
+                            setimg(i, j, arrbool, arrval, img);
+                            setimg(i + 1, j, arrbool, arrval, img);
                             flag = 0;
-                        }
-                        else  //check if next down matches
+                        } else  //check if next down matches
                             flag = 1;
                         if (flag == 0)
                             i = 2;
                     }
                 }
                 checkloose();
-                createnew(arrbool , arrval , img);
+                createnew(arrbool, arrval, img);
                 setscore();
-                if(music.equalsIgnoreCase("ON"))
-                {
-                    if(sound ==0 )
+                if (music.equalsIgnoreCase("ON")) {
+                    if (sound == 0)
                         mnojoin.start();
                     else
                         mjoin.start();
                 }
-            }
-            else
-            {//up
+            } else {//up
                 int flag = 1;
-                for (int i = 1; i < 4; i++)
-                {
-                    for (int j = 0; j < 4; j++)
-                    {
-                        if (arrbool[i][j] == true && arrbool[i - 1][ j] == false)
-                        {            //shift to up
-                            arrval[i - 1][ j] = arrval[i][ j];
-                            arrval[i][ j] = 0;
-                            arrbool[i - 1][ j] = true;
-                            arrbool[i][ j] = false;
-                            setimg(i, j , arrbool , arrval , img);
-                            setimg(i - 1, j , arrbool , arrval , img);
+                for (int i = 1; i < 4; i++) {
+                    for (int j = 0; j < 4; j++) {
+                        if (arrbool[i][j] == true && arrbool[i - 1][j] == false) {            //shift to up
+                            arrval[i - 1][j] = arrval[i][j];
+                            arrval[i][j] = 0;
+                            arrbool[i - 1][j] = true;
+                            arrbool[i][j] = false;
+                            setimg(i, j, arrbool, arrval, img);
+                            setimg(i - 1, j, arrbool, arrval, img);
                             flag = 0;
-                        }
-                        else  //check if next up matches
+                        } else  //check if next up matches
                             flag = 1;
                         if (flag == 0)
                             i = 1;
                     }
                 }
-                for (int i = 1; i < 4; i++)
-                {
-                    for (int j = 0; j < 4; j++)
-                    {
-                        if (arrbool[i][ j] == true && arrbool[i - 1][ j] == true && arrval[i][ j] == arrval[i - 1][ j])
-                        {            //combine to up
-                            arrval[i-1][ j] = 2 * arrval[i][ j];
+                for (int i = 1; i < 4; i++) {
+                    for (int j = 0; j < 4; j++) {
+                        if (arrbool[i][j] == true && arrbool[i - 1][j] == true && arrval[i][j] == arrval[i - 1][j]) {            //combine to up
+                            arrval[i - 1][j] = 2 * arrval[i][j];
                             arrval[i][j] = 0;
-                            arrbool[i][ j] = false;
-                            setimg(i, j , arrbool , arrval , img);
-                            setimg(i - 1, j , arrbool , arrval , img);
-                            sound=1;
+                            arrbool[i][j] = false;
+                            setimg(i, j, arrbool, arrval, img);
+                            setimg(i - 1, j, arrbool, arrval, img);
+                            sound = 1;
                         }
                     }
                 }
                 flag = 1;
-                for (int i = 1; i < 4; i++)
-                {
-                    for (int j = 0; j < 4; j++)
-                    {
-                        if (arrbool[i][j] == true && arrbool[i - 1][ j] == false)
-                        {            //shift to up
-                            arrval[i - 1][j] = arrval[i][ j];
-                            arrval[i][ j] = 0;
-                            arrbool[i - 1][ j] = true;
-                            arrbool[i][ j] = false;
-                            setimg(i, j , arrbool , arrval , img);
-                            setimg(i - 1, j , arrbool , arrval , img);
+                for (int i = 1; i < 4; i++) {
+                    for (int j = 0; j < 4; j++) {
+                        if (arrbool[i][j] == true && arrbool[i - 1][j] == false) {            //shift to up
+                            arrval[i - 1][j] = arrval[i][j];
+                            arrval[i][j] = 0;
+                            arrbool[i - 1][j] = true;
+                            arrbool[i][j] = false;
+                            setimg(i, j, arrbool, arrval, img);
+                            setimg(i - 1, j, arrbool, arrval, img);
                             flag = 0;
-                        }
-                        else  //check if next up matches
+                        } else  //check if next up matches
                             flag = 1;
                         if (flag == 0)
                             i = 1;
                     }
                 }
                 checkloose();
-                createnew(arrbool , arrval , img);
+                createnew(arrbool, arrval, img);
                 setscore();
-                if(music.equalsIgnoreCase("ON"))
-                {
-                    if(sound ==0 )
+                if (music.equalsIgnoreCase("ON")) {
+                    if (sound == 0)
                         mnojoin.start();
                     else
                         mjoin.start();
@@ -693,7 +617,7 @@ public class GameFragment extends Fragment implements GestureDetector.OnGestureL
         return false;
     }
 
-    public void setimgwin(){
+    public void setimgwin() {
         Picasso.with(getContext()).load(R.drawable.a2bb).into(imgstart);
     }
 

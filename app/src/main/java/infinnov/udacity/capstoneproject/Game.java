@@ -12,8 +12,8 @@ import android.widget.Toast;
 
 public class Game extends AppCompatActivity {
 
-    static int back =0;
-    AlertDialog alert;	// you win/ loose
+    static int back = 0;
+    AlertDialog alert;    // you win/ loose
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,31 +41,13 @@ public class Game extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK)
-        {
-            if (back ==0 )
-            {
-                back =1;
-                Toast.makeText(this, getString(R.string.gobackpress), Toast.LENGTH_SHORT).show();
-            }
-            else
-                finish();
-            return true;
-        }
-        return this.onKeyDown(keyCode, event);
-    }
-
-    @Override
-    protected Dialog onCreateDialog(int id)
-    {
+    protected Dialog onCreateDialog(int id) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        if(id ==1 )			// win
+        if (id == 1)            // win
             builder.setMessage(getString(R.string.wintext));
         else
             builder.setMessage(getString(R.string.loosetext));
@@ -78,6 +60,7 @@ public class Game extends AppCompatActivity {
         // TODO Auto-generated method stub
         super.onPause();
     }
+
     @Override
     protected void onResume() {
         // TODO Auto-generated method stub

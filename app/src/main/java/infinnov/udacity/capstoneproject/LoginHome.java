@@ -6,8 +6,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -18,7 +16,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -42,19 +39,23 @@ import java.net.URL;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class LoginHome extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, LoaderManager.LoaderCallbacks<Cursor>  {
+public class LoginHome extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, LoaderManager.LoaderCallbacks<Cursor> {
 
-    GoogleApiClient mGoogleApiClient;
     final static int RC_SIGN_IN = 1;
     final static String worldhighscoreurl = "http://cutshort-data.s3.amazonaws.com/cloudfront/public/temporary/highscore.json";
+    GoogleApiClient mGoogleApiClient;
 
-            //"https://docs.google.com/document/d/e/2PACX-1vQKM2YvkYSHxhURLX8XfeFUW3VMzl8JyKwErk0G7TYXGfBRU9JQnMs4jGy7g5XUjG45VvThK1N9eifG/pub?embedded=true";//https://www.dropbox.com/s/w52qqbbaucxqkmb/highscore.json?dl=0";
-
-    @BindView(R.id.ivPlayerImage)    ImageView ivPlayerImage;
-    @BindView(R.id.tvHighScore)    TextView tvHighScore;
-    @BindView(R.id.tvWorldHighScore)    TextView tvWorldHighScore;
-    @BindView(R.id.btnPlay)    Button btnPlay;
-    @BindView(R.id.sign_in_button)    com.google.android.gms.common.SignInButton sign_in_button;
+    //"https://docs.google.com/document/d/e/2PACX-1vQKM2YvkYSHxhURLX8XfeFUW3VMzl8JyKwErk0G7TYXGfBRU9JQnMs4jGy7g5XUjG45VvThK1N9eifG/pub?embedded=true";//https://www.dropbox.com/s/w52qqbbaucxqkmb/highscore.json?dl=0";
+    @BindView(R.id.ivPlayerImage)
+    ImageView ivPlayerImage;
+    @BindView(R.id.tvHighScore)
+    TextView tvHighScore;
+    @BindView(R.id.tvWorldHighScore)
+    TextView tvWorldHighScore;
+    @BindView(R.id.btnPlay)
+    Button btnPlay;
+    @BindView(R.id.sign_in_button)
+    com.google.android.gms.common.SignInButton sign_in_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +112,7 @@ public class LoginHome extends AppCompatActivity implements GoogleApiClient.OnCo
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
-            Log.d("Nuances App", "--------------------------"+acct.getPhotoUrl());
+            Log.d("Nuances App", "--------------------------" + acct.getPhotoUrl());
             //ivPlayerImage.setImageResource();
             sign_in_button.setVisibility(View.GONE);
             ivPlayerImage.setVisibility(View.VISIBLE);
@@ -145,8 +146,8 @@ public class LoginHome extends AppCompatActivity implements GoogleApiClient.OnCo
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor c) {
         if (c.moveToFirst()) {
-            Integer Score = c.getInt(c.getColumnIndex( ScoreProvider.SCORE));
-            tvHighScore.setText(getString(R.string.highscore)+ " "+Score);
+            Integer Score = c.getInt(c.getColumnIndex(ScoreProvider.SCORE));
+            tvHighScore.setText(getString(R.string.highscore) + " " + Score);
         }
     }
 
@@ -160,7 +161,7 @@ public class LoginHome extends AppCompatActivity implements GoogleApiClient.OnCo
         private String resp;
         private TextView whs;
 
-        public GetWorldHighScore(){
+        public GetWorldHighScore() {
             this.whs = tvWorldHighScore;
         }
 
@@ -194,7 +195,7 @@ public class LoginHome extends AppCompatActivity implements GoogleApiClient.OnCo
         @Override
         protected void onPostExecute(String result) {
             // execution of result of Long time consuming operation
-            whs.setText(getString(R.string.worldhighscore)+" " + result);
+            whs.setText(getString(R.string.worldhighscore) + " " + result);
         }
 
 

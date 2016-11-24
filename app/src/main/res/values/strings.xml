@@ -20,6 +20,10 @@
     </string>
     <string name="title_activity_login_home">LoginHome</string>
     <string name="signedin_fmt">abcd</string>
+    <string name="init_score">0</string>
+    <string name="start">START</string>
+    <string name="win">WIN</string>
+    <string name="reset">RESET</string>
 
     <string name="leaderboard">Leaderboard</string>
     <string name="highscore">Highscore</string>
@@ -30,8 +34,6 @@
     <string name="gobackpress">Press Again To Go Back</string>
     <string name="wintext">You Win :)</string>
     <string name="loosetext">You Loose :(</string>
-
-
 
 
     <string name="cd_widgetbreakit">Play Button</string>

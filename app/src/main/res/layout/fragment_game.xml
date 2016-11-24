@@ -1,28 +1,29 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical"
-    android:padding="20dp"
     android:background="@drawable/backg"
-    android:clickable="true">
+    android:clickable="true"
+    android:orientation="vertical"
+    android:padding="20dp">
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_weight="1"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:background="@drawable/orange"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/lblscore"
@@ -30,7 +31,7 @@
                     android:layout_height="fill_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="0"
+                    android:text="@string/init_score"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="#FFFFFF"
                     android:textStyle="bold" />
@@ -40,7 +41,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="0.7"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/lblhscore"
@@ -48,7 +49,7 @@
                     android:layout_height="fill_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="0"
+                    android:text="@string/init_score"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="#FFFFFF"
                     android:textStyle="bold" />
@@ -59,31 +60,31 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="0.6"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:padding="10dp" >
+                android:padding="10dp">
 
                 <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:layout_weight="1"
                     android:gravity="center|top"
-                    android:text="START"
+                    android:text="@string/start"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="#FFFFFF"
                     android:textStyle="bold" />
 
                 <ImageView
                     android:id="@+id/imgstart"
-                    android:contentDescription="@string/cd_startimg"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:layout_weight="0.6"
+                    android:contentDescription="@string/cd_startimg"
                     android:gravity="center|bottom"
                     android:src="@drawable/blank" />
             </LinearLayout>
@@ -93,14 +94,14 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:padding="10dp" >
+                android:padding="10dp">
 
                 <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:layout_weight="1"
                     android:gravity="center|top"
-                    android:text="WIN"
+                    android:text="@string/win"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="#FFFFFF"
                     android:textStyle="bold" />
@@ -109,25 +110,25 @@
                     android:id="@+id/imgwin"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:contentDescription="@string/cd_winimg"
                     android:layout_weight="0.6"
+                    android:contentDescription="@string/cd_winimg"
                     android:gravity="center|bottom"
                     android:src="@drawable/a2048" />
             </LinearLayout>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
 
             <TextView
-                android:contentDescription="@string/cd_restartgame"
                 android:id="@+id/reset"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="RESET"
+                android:contentDescription="@string/cd_restartgame"
+                android:text="@string/reset"
                 android:textColor="#FFFFFF"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
 
@@ -137,7 +138,7 @@
         android:layout_weight="0.5"
         android:background="@drawable/panelback"
         android:orientation="vertical"
-        android:paddingTop="8dp" >
+        android:paddingTop="8dp">
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -145,44 +146,44 @@
             android:layout_weight="1"
             android:orientation="horizontal"
             android:paddingBottom="8dp"
-            android:paddingStart="8dp" >
+            android:paddingStart="8dp">
 
             <ImageView
                 android:id="@+id/pb11"
-                android:contentDescription="@string/cd_pb11"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
+                android:contentDescription="@string/cd_pb11"
                 android:paddingEnd="8dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/blank" />
 
             <ImageView
                 android:id="@+id/pb12"
-                android:contentDescription="@string/cd_pb12"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
+                android:contentDescription="@string/cd_pb12"
                 android:paddingEnd="8dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/blank" />
 
             <ImageView
                 android:id="@+id/pb13"
-                android:contentDescription="@string/cd_pb13"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
+                android:contentDescription="@string/cd_pb13"
                 android:paddingEnd="8dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/blank" />
 
             <ImageView
                 android:id="@+id/pb14"
-                android:contentDescription="@string/cd_pb14"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
+                android:contentDescription="@string/cd_pb14"
                 android:paddingEnd="8dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/blank" />
@@ -194,44 +195,44 @@
             android:layout_weight="1"
             android:orientation="horizontal"
             android:paddingBottom="8dp"
-            android:paddingStart="8dp" >
+            android:paddingStart="8dp">
 
             <ImageView
                 android:id="@+id/pb21"
-                android:contentDescription="@string/cd_pb21"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
+                android:contentDescription="@string/cd_pb21"
                 android:paddingEnd="8dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/blank" />
 
             <ImageView
                 android:id="@+id/pb22"
-                android:contentDescription="@string/cd_pb22"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
+                android:contentDescription="@string/cd_pb22"
                 android:paddingEnd="8dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/blank" />
 
             <ImageView
                 android:id="@+id/pb23"
-                android:contentDescription="@string/cd_pb23"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
+                android:contentDescription="@string/cd_pb23"
                 android:paddingEnd="8dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/blank" />
 
             <ImageView
                 android:id="@+id/pb24"
-                android:contentDescription="@string/cd_pb24"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
+                android:contentDescription="@string/cd_pb24"
                 android:paddingEnd="8dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/blank" />
@@ -243,44 +244,44 @@
             android:layout_weight="1"
             android:orientation="horizontal"
             android:paddingBottom="8dp"
-            android:paddingStart="8dp" >
+            android:paddingStart="8dp">
 
             <ImageView
                 android:id="@+id/pb31"
-                android:contentDescription="@string/cd_pb31"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
+                android:contentDescription="@string/cd_pb31"
                 android:paddingEnd="8dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/blank" />
 
             <ImageView
                 android:id="@+id/pb32"
-                android:contentDescription="@string/cd_pb32"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
+                android:contentDescription="@string/cd_pb32"
                 android:paddingEnd="8dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/blank" />
 
             <ImageView
                 android:id="@+id/pb33"
-                android:contentDescription="@string/cd_pb33"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
+                android:contentDescription="@string/cd_pb33"
                 android:paddingEnd="8dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/blank" />
 
             <ImageView
                 android:id="@+id/pb34"
-                android:contentDescription="@string/cd_pb34"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
+                android:contentDescription="@string/cd_pb34"
                 android:paddingEnd="8dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/blank" />
@@ -292,44 +293,44 @@
             android:layout_weight="1"
             android:orientation="horizontal"
             android:paddingBottom="8dp"
-            android:paddingStart="8dp" >
+            android:paddingStart="8dp">
 
             <ImageView
                 android:id="@+id/pb41"
-                android:contentDescription="@string/cd_pb41"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
+                android:contentDescription="@string/cd_pb41"
                 android:paddingEnd="8dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/blank" />
 
             <ImageView
                 android:id="@+id/pb42"
-                android:contentDescription="@string/cd_pb42"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
+                android:contentDescription="@string/cd_pb42"
                 android:paddingEnd="8dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/blank" />
 
             <ImageView
                 android:id="@+id/pb43"
-                android:contentDescription="@string/cd_pb43"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
+                android:contentDescription="@string/cd_pb43"
                 android:paddingEnd="8dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/blank" />
 
             <ImageView
                 android:id="@+id/pb44"
-                android:contentDescription="@string/cd_pb44"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
+                android:contentDescription="@string/cd_pb44"
                 android:paddingEnd="8dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/blank" />
